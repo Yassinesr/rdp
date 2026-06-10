@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.db
+garmin_token.json
+secrets/
+node_modules/
+.next/
+.env
+.env.local
