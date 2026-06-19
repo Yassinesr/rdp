@@ -26,9 +26,15 @@ services:
     command: python -m app.run_sync
     environment:
       DATABASE_URL: postgresql+psycopg2://coach:coach@db:5432/garmin_coach
+      # Personal Garmin Connect account (default). Set these in a .env file.
+      GARMIN_SOURCE: ${GARMIN_SOURCE:-connect}
+      GARMIN_EMAIL: ${GARMIN_EMAIL:-}
+      GARMIN_PASSWORD: ${GARMIN_PASSWORD:-}
+      GARMIN_TOKENSTORE: /secrets/.garminconnect
+      # Used only when GARMIN_SOURCE=health
       GARMIN_TOKEN_FILE: /secrets/garmin_token.json
     volumes:
-      - ./secrets:/secrets:ro
+      - ./secrets:/secrets
     restart: always
     depends_on:
       - db

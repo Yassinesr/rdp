@@ -3,4 +3,5 @@ uvicorn[standard]>=0.29
 requests>=2.31
 sqlalchemy>=2.0
 psycopg2-binary>=2.9
+garminconnect>=0.2.19
 openai>=1.30
