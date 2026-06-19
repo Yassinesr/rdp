@@ -121,7 +121,44 @@ All settings are environment-driven (see `backend/app/config.py`):
 | `GARMIN_TOKEN_FILE` | `./garmin_token.json` | Health API OAuth token bundle |
 | `SYNC_INTERVAL_SECONDS` | `900` | Daemon polling interval |
 | `GARMIN_USER_ID` | `user1` | User key for stored metrics |
+| `PROFILE_FILE` | `./athlete_profile.json` | Your athlete profile (see below) |
 | `OPENAI_API_KEY` | (unset) | Enables the optional AI coach-notes summary |
+
+## Personalization & planned workouts
+
+Garmin knows what your body does, not your goals, diet, or preferences. Fill in
+[`ATHLETE_PROFILE.md`](./ATHLETE_PROFILE.md), save the answers as JSON (start from
+[`profile.example.json`](./profile.example.json)) at `PROFILE_FILE`, and the app:
+
+- computes your **calorie baseline (BMR)** from age/sex/height/weight
+  (Mifflin–St Jeor) instead of a guessed number,
+- uses your `baseline_rhr` / `baseline_hrv` as the reference points for the
+  readiness and risk engines,
+- factors diet, allergies, and dislikes into food/fueling suggestions.
+
+```bash
+curl http://localhost:8000/profile   # -> {"configured": true, "bmr": 2018, ...}
+```
+
+**Macros that follow your training day.** Once Garmin is connected, the client
+can pull your upcoming scheduled workouts from the Garmin training calendar
+(`GarminConnectClient.fetch_planned_workouts()`), classify each into an intensity
+bucket, and set that day's carb target accordingly. The `/day-plan` endpoint ties
+your profile and the planned workout together:
+
+```bash
+curl -X POST http://localhost:8000/day-plan -H "Content-Type: application/json" \
+  -d '{"planned_workout": {"title": "VO2 Max 5x4", "estimatedDurationInSecs": 5400}}'
+```
+
+Carbohydrate scales with intensity — e.g. for a 107 kg rider: recovery ~321 g →
+endurance ~535 g → threshold ~749 g → VO2max ~856 g, all on the same calorie
+baseline. The `planned_workout` field accepts either a raw Garmin calendar item
+or a simple `{"type": "...", "duration_min": N}`.
+
+> The calendar fetch uses Garmin's undocumented internal endpoint, so it's
+> best-effort and degrades to an empty list if Garmin changes it; the
+> classification and macro logic are fully deterministic and tested.
 
 ## API example
 
