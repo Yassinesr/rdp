@@ -109,7 +109,25 @@ for Docker) and set `GARMIN_SOURCE=health`:
 
 ### Configuration
 
-All settings are environment-driven (see `backend/app/config.py`):
+Settings resolve in this order: **environment variable → JSON config file →
+default**. The JSON file lets you set your Garmin login once instead of
+re-exporting environment variables in every terminal (handy on Windows, where
+`$env:` vars don't persist between windows).
+
+Copy `backend/config.example.json` to `backend/config.local.json` and fill it in:
+
+```json
+{
+  "GARMIN_SOURCE": "connect",
+  "GARMIN_EMAIL": "you@example.com",
+  "GARMIN_PASSWORD": "your-garmin-password"
+}
+```
+
+`config.local.json` is gitignored (it holds your password). Override the path
+with the `CONFIG_FILE` env var if you want it elsewhere.
+
+All available keys (see `backend/app/config.py`):
 
 | Variable | Default | Purpose |
 | --- | --- | --- |

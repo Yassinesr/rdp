@@ -4,6 +4,7 @@ __pycache__/
 garmin_token.json
 .garminconnect/
 athlete_profile.json
+config.local.json
 secrets/
 node_modules/
 .next/
