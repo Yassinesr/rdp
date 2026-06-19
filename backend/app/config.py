@@ -15,5 +15,12 @@ class Settings:
     USER_ID = os.getenv("GARMIN_USER_ID", "user1")
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
+    # Data source: "connect" (personal account via garminconnect) or
+    # "health" (partner-only Garmin Health API).
+    GARMIN_SOURCE = os.getenv("GARMIN_SOURCE", "connect")
+    GARMIN_EMAIL = os.getenv("GARMIN_EMAIL", "")
+    GARMIN_PASSWORD = os.getenv("GARMIN_PASSWORD", "")
+    GARMIN_TOKENSTORE = os.getenv("GARMIN_TOKENSTORE", "./.garminconnect")
+
 
 settings = Settings()

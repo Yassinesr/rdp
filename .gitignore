@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 *.db
 garmin_token.json
+.garminconnect/
 secrets/
 node_modules/
 .next/

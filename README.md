@@ -69,22 +69,56 @@ npm install
 npm run dev
 ```
 
-## Garmin credentials
+## Connecting Garmin
 
-The Garmin Health API requires an approved developer program account. Once you
-have OAuth credentials, save the token bundle where the sync daemon can read it
-(default `./garmin_token.json`, or `secrets/garmin_token.json` for Docker):
+The sync daemon supports two data sources, selected with `GARMIN_SOURCE`.
+
+### Default: personal Garmin Connect account (`GARMIN_SOURCE=connect`)
+
+The Garmin **Health API** is a partner-only program that individuals generally
+cannot get approved for. So by default the daemon uses
+[`garminconnect`](https://github.com/cyberjunky/python-garmin-connect), which
+logs in with your normal Garmin Connect email and password — the same
+credentials as the app — and reads sleep, HRV, training load, and activities.
+No developer approval needed.
+
+```bash
+export GARMIN_SOURCE=connect
+export GARMIN_EMAIL="you@example.com"
+export GARMIN_PASSWORD="..."
+python -m app.run_sync
+```
+
+The first login caches a token bundle in `GARMIN_TOKENSTORE` (default
+`./.garminconnect`) so later runs don't re-submit your password. If your
+account uses MFA, generate that token bundle once interactively, then the
+daemon reuses it.
+
+> Unofficial library — fine for personal use, but it can break if Garmin
+> changes their internal API, and it's a gray area under Garmin's ToS.
+
+### Optional: partner Garmin Health API (`GARMIN_SOURCE=health`)
+
+If you *do* have approved OAuth credentials, save the token bundle where the
+daemon can read it (default `./garmin_token.json`, or `secrets/garmin_token.json`
+for Docker) and set `GARMIN_SOURCE=health`:
 
 ```json
 { "access_token": "...", "refresh_token": "...", "expires_in": 3600 }
 ```
 
-Configuration is environment-driven (see `backend/app/config.py`):
+### Configuration
+
+All settings are environment-driven (see `backend/app/config.py`):
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `DATABASE_URL` | `sqlite:///./garmin_coach.db` | SQLAlchemy database URL |
-| `GARMIN_TOKEN_FILE` | `./garmin_token.json` | OAuth token bundle location |
+| `GARMIN_SOURCE` | `connect` | `connect` (personal) or `health` (partner API) |
+| `GARMIN_EMAIL` | (unset) | Garmin Connect login (connect source) |
+| `GARMIN_PASSWORD` | (unset) | Garmin Connect password (connect source) |
+| `GARMIN_TOKENSTORE` | `./.garminconnect` | Cached Connect token bundle dir |
+| `GARMIN_TOKEN_FILE` | `./garmin_token.json` | Health API OAuth token bundle |
 | `SYNC_INTERVAL_SECONDS` | `900` | Daemon polling interval |
 | `GARMIN_USER_ID` | `user1` | User key for stored metrics |
 | `OPENAI_API_KEY` | (unset) | Enables the optional AI coach-notes summary |
