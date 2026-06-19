@@ -22,5 +22,7 @@ class Settings:
     GARMIN_PASSWORD = os.getenv("GARMIN_PASSWORD", "")
     GARMIN_TOKENSTORE = os.getenv("GARMIN_TOKENSTORE", "./.garminconnect")
 
+    PROFILE_FILE = os.getenv("PROFILE_FILE", "./athlete_profile.json")
+
 
 settings = Settings()

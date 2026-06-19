@@ -12,6 +12,7 @@ sync daemon and engines are unchanged.
 from datetime import date, datetime, timedelta, timezone
 
 from .config import settings
+from .engine.workout_mapping import classify_planned_workout
 
 
 def _epoch_ms_to_seconds(value):
@@ -158,3 +159,43 @@ class GarminConnectClient:
         except AttributeError:
             raw = api.get_activities(0, 20)
         return map_activities(raw)
+
+    def fetch_planned_workouts(self, days_ahead=7):
+        """Pull upcoming scheduled workouts from the Garmin training calendar
+        and classify each into an intensity bucket for macro planning.
+
+        Best-effort: Garmin's calendar-service endpoint is undocumented and may
+        change, so failures degrade to an empty list rather than crashing the
+        daemon.
+        """
+        api = self.api()
+        try:
+            items = self._calendar_items(api, days_ahead)
+        except Exception as e:
+            print("Planned-workout fetch failed (calendar unavailable):", e)
+            return []
+        return [classify_planned_workout(it) for it in items]
+
+    def _calendar_items(self, api, days_ahead):
+        today = date.today()
+        end = today + timedelta(days=days_ahead)
+
+        # Garmin's calendar-service is month-scoped and 0-indexed; query every
+        # month the window touches.
+        months = {(today.year, today.month), (end.year, end.month)}
+        results = []
+        for year, month in months:
+            data = api.garth.connectapi(f"/calendar-service/year/{year}/month/{month - 1}")
+            for it in (data or {}).get("calendarItems", []):
+                if it.get("itemType") not in ("workout", "trainingPlan"):
+                    continue
+                raw_date = it.get("date") or it.get("scheduledDate")
+                if not raw_date:
+                    continue
+                try:
+                    d = date.fromisoformat(str(raw_date)[:10])
+                except ValueError:
+                    continue
+                if today <= d <= end:
+                    results.append(it)
+        return results

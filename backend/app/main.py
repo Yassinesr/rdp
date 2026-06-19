@@ -9,6 +9,8 @@ from .engine.hydration import hydration
 from .engine.mobility import mobility_plan
 from .engine.risk import risk_check
 from .engine.training_load import training_load
+from .engine.workout_mapping import classify_planned_workout
+from .profile import AthleteProfile, load_profile, profile_summary
 from .ai_summary import explain
 
 app = FastAPI(title="Garmin Coach")
@@ -20,23 +22,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Fallback values so /day-plan can run before every metric is wired up.
+ENGINE_DEFAULTS = {
+    "garmin_readiness": 75,
+    "sleep_score": 70,
+    "hrv_status": "balanced",
+    "hrv": 60,
+    "baseline_hrv": 60,
+    "acute_load": 400,
+    "chronic_load": 400,
+    "resting_hr": 50,
+    "baseline_rhr": 50,
+    "sleep_debt_hours": 0,
+    "bmr": 1800,
+    "active_calories": 600,
+    "recovery_modifier": 0,
+    "weight_loss_target": 0,
+    "weight": 75,
+    "temp_c": 20,
+    "workout_type": "endurance",
+    "workout": {"duration_min": 60, "type": "endurance"},
+}
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
 
-
-@app.post("/daily")
-def daily(data: dict):
-    readiness = compute_readiness(data)
-
+def run_engines(data: dict) -> dict:
     kcal = calories(data)
-    macro = macros(data, kcal)
-
     result = {
-        "readiness": readiness,
+        "readiness": compute_readiness(data),
         "calories": kcal,
-        "macros": macro,
+        "macros": macros(data, kcal),
         "fueling": fueling_plan(data["workout"]),
         "hydration": hydration(data),
         "recovery": recovery_plan(data),
@@ -61,4 +75,68 @@ def daily(data: dict):
     if summary:
         result["summary"] = summary
 
+    return result
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+@app.get("/profile")
+def profile():
+    p = load_profile()
+    if not p:
+        return {
+            "configured": False,
+            "message": "No profile found. Fill in ATHLETE_PROFILE.md, save it as "
+            "JSON (see profile.example.json) at PROFILE_FILE.",
+        }
+    return profile_summary(p)
+
+
+@app.post("/daily")
+def daily(data: dict):
+    return run_engines(data)
+
+
+@app.post("/day-plan")
+def day_plan(body: dict):
+    """Build a day's nutrition/coaching from your profile plus the workout
+    planned for that day.
+
+    Body: {
+        "profile": {...} | null,          # falls back to the saved profile
+        "planned_workout": {...} | null,  # raw Garmin calendar item or
+                                          # {"type": "...", "duration_min": N}
+        "metrics": {...}                  # today's Garmin vitals (optional)
+    }
+    Macros adapt to the planned workout's intensity (recovery/endurance/
+    threshold/vo2max).
+    """
+    data = dict(ENGINE_DEFAULTS)
+
+    prof = body.get("profile")
+    if prof:
+        data.update(AthleteProfile.from_dict(prof).to_daily_inputs())
+    else:
+        saved = load_profile()
+        if saved:
+            data.update(saved.to_daily_inputs())
+
+    data.update(body.get("metrics") or {})
+
+    classified = None
+    planned = body.get("planned_workout")
+    if planned:
+        classified = classify_planned_workout(planned)
+        data["workout_type"] = classified["workout_type"]
+        data["workout"] = {
+            "duration_min": classified["duration_min"],
+            "type": classified["workout_type"],
+        }
+
+    result = run_engines(data)
+    if classified:
+        result["planned_workout"] = classified
     return result

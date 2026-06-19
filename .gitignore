@@ -3,6 +3,7 @@ __pycache__/
 *.db
 garmin_token.json
 .garminconnect/
+athlete_profile.json
 secrets/
 node_modules/
 .next/
