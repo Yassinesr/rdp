@@ -140,3 +140,57 @@ def day_plan(body: dict):
     if classified:
         result["planned_workout"] = classified
     return result
+
+
+def _base_inputs(body: dict) -> dict:
+    """Assemble engine inputs from defaults + profile + today's metrics."""
+    data = dict(ENGINE_DEFAULTS)
+    prof = body.get("profile")
+    if prof:
+        data.update(AthleteProfile.from_dict(prof).to_daily_inputs())
+    else:
+        saved = load_profile()
+        if saved:
+            data.update(saved.to_daily_inputs())
+    data.update(body.get("metrics") or {})
+    return data
+
+
+@app.post("/week-plan")
+def week_plan(body: dict):
+    """Macro targets for a week of planned workouts.
+
+    Body: {
+        "profile": {...} | null,
+        "planned_workouts": [ {raw Garmin item or {type, duration_min}}, ... ],
+        "metrics": {...}
+    }
+    Each day's carbs follow that day's training intensity, on the calorie
+    baseline from your profile. Once Garmin is connected, populate
+    planned_workouts from GarminConnectClient.fetch_planned_workouts().
+    """
+    base = _base_inputs(body)
+
+    days = []
+    for pw in body.get("planned_workouts", []):
+        classified = classify_planned_workout(pw)
+        data = dict(base)
+        data["workout_type"] = classified["workout_type"]
+        data["workout"] = {
+            "duration_min": classified["duration_min"],
+            "type": classified["workout_type"],
+        }
+        kcal = calories(data)
+        days.append(
+            {
+                "title": classified["title"],
+                "date": classified["date"],
+                "workout_type": classified["workout_type"],
+                "duration_min": classified["duration_min"],
+                "calories": kcal,
+                "macros": macros(data, kcal),
+                "fueling": fueling_plan(data["workout"]),
+            }
+        )
+
+    return {"days": days}

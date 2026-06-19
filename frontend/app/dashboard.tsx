@@ -3,12 +3,13 @@
 import StatGrid from "./components/StatGrid";
 import ReadinessCard from "./components/ReadinessCard";
 import TrainingLoadCard from "./components/TrainingLoadCard";
+import WeekPlan from "./components/WeekPlan";
 import NutritionPanel from "./components/NutritionPanel";
 import WorkoutPlan from "./components/WorkoutPlan";
 import RecoveryPanel from "./components/RecoveryPanel";
 import MobilityPanel from "./components/MobilityPanel";
 
-export default function Dashboard({ data }: { data: any }) {
+export default function Dashboard({ data, week }: { data: any; week?: any[] }) {
   return (
     <div style={{ maxWidth: 920, margin: "0 auto", padding: 24, display: "grid", gap: 16 }}>
       <div>
@@ -23,6 +24,8 @@ export default function Dashboard({ data }: { data: any }) {
       <StatGrid readiness={data.readiness} metrics={data.metrics} trainingLoad={data.training_load} />
 
       {data.training_load && <TrainingLoadCard tl={data.training_load} />}
+
+      {week && <WeekPlan days={week} />}
 
       <div
         style={{
