@@ -1,0 +1,12 @@
+{
+  "GARMIN_SOURCE": "connect",
+  "GARMIN_EMAIL": "you@example.com",
+  "GARMIN_PASSWORD": "your-garmin-password",
+
+  "DATABASE_URL": "sqlite:///./garmin_coach.db",
+  "SYNC_INTERVAL_SECONDS": "900",
+  "GARMIN_USER_ID": "user1",
+  "PROFILE_FILE": "./athlete_profile.json",
+
+  "OPENAI_API_KEY": ""
+}
