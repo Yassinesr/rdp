@@ -13,20 +13,54 @@ def parse_ts(value):
     return datetime.fromisoformat(str(value).replace("Z", "+00:00")).replace(tzinfo=None)
 
 
+def _is_rate_limited(error):
+    """Garmin/garth surface IP rate limiting as HTTP 429."""
+    text = str(error).lower()
+    return "429" in text or "rate limit" in text or "too many" in text
+
+
 class GarminSyncDaemon:
-    def __init__(self, client, db, user_id=None, interval=None):
+    def __init__(
+        self,
+        client,
+        db,
+        user_id=None,
+        interval=None,
+        error_backoff=60,
+        rate_limit_backoff=1800,
+        max_backoff=21600,
+    ):
         self.client = client
         self.db = db
         self.user_id = user_id or settings.USER_ID
         self.interval = interval or settings.SYNC_INTERVAL_SECONDS
+        # Backoff tuning (seconds): generic transient errors start small,
+        # rate limiting (429) starts much higher, both capped at max_backoff.
+        self.error_backoff = error_backoff
+        self.rate_limit_backoff = rate_limit_backoff
+        self.max_backoff = max_backoff
+
+    def _backoff_seconds(self, error, failures):
+        base = self.rate_limit_backoff if _is_rate_limited(error) else self.error_backoff
+        # Exponential growth on consecutive failures, capped.
+        return min(base * (2 ** (failures - 1)), self.max_backoff)
 
     def run_forever(self):
+        failures = 0
         while True:
             try:
                 self.sync_all()
             except Exception as e:
-                print("SYNC ERROR:", e)
+                failures += 1
+                wait = self._backoff_seconds(e, failures)
+                kind = "RATE LIMITED" if _is_rate_limited(e) else "SYNC ERROR"
+                mins = round(wait / 60, 1)
+                print(f"{kind} (failure #{failures}): {e} -> backing off {mins} min")
+                time.sleep(wait)
+                continue
 
+            # Success: reset the failure streak and poll on the normal cadence.
+            failures = 0
             time.sleep(self.interval)
 
     def sync_all(self):

@@ -12,11 +12,12 @@ const DEMO_INPUT = {
   hrv_status: "balanced",
   hrv: 62,
   baseline_hrv: 65,
-  acute_load: 450,
+  acute_load: 300, // below chronic -> shows the detraining / build-load guidance
   chronic_load: 400,
   resting_hr: 52,
   baseline_rhr: 50,
   sleep_debt_hours: 4,
+  body_battery: 68,
   bmr: 2100,
   active_calories: 900,
   recovery_modifier: 0,
