@@ -233,3 +233,33 @@ so you can compare quality directly. Then:
    US address if you can, to see the real delivery time and import charges.
 5. **Send me** the supplier quotes (screenshots are fine) and photos of the samples. I'll finish
    the cost model, then build the product page with a photo-upload step.
+
+## Appendix: 1688 search terms
+
+Use one line per search, and add a modifier (below) to narrow the results.
+
+| Format | Search terms |
+|---|---|
+| Illustrated color 3D tag (¥27.9 type) | `宠物照片定制 UV浮雕 钥匙扣` · `3D浮雕 宠物头像 挂件 定制` · `宠物 彩色浮雕 吊牌 定制` · `宠物纪念牌 照片定制 浮雕` · `宠物 防丢牌 照片定制 立体` |
+| Hand-painted sculpted relief (¥91–138 type) | `宠物 手绘 树脂浮雕 定制` · `宠物 立体浮雕 徽章 定制 照片` · `3D打印 宠物浮雕 定制 挂件` · `宠物 浮雕 圆牌 手工上色` · `宠物雕塑 定制 照片 浮雕 皮革钥匙扣` |
+| Leather keychain cut to the pet's shape | `宠物 皮革钥匙扣 照片定制` · `宠物 异形 皮具挂件 定制 头像` · `牛皮 宠物钥匙扣 定制 印刷` · `PU皮 宠物头像 钥匙扣 定制` |
+| Engraved metal photo tag (add-on) | `宠物照片 激光雕刻 吊牌` · `不锈钢 狗牌 照片定制` · `宠物 防丢牌 刻字 照片` · `黄铜 宠物牌 深雕 定制` |
+| Necklace version | `宠物照片 项链 定制` · `宠物 浮雕吊坠 项链 定制` · `不锈钢 宠物吊坠 照片定制` |
+| Packaging | `钥匙扣 包装盒 小号 礼盒` · `首饰盒 定制logo 小批量` · `珍珠棉内托 小盒 定制` |
+
+**Modifiers:**
+- `一件代发` (ships single orders)
+- `源头工厂` / `厂家直销` (the factory itself)
+- `跨境` / `外贸` (used to export)
+- `批发` (wholesale)
+- `白牌` / `无logo` (unbranded)
+- `定制logo` (your own logo)
+
+**Filters:** 一件代发, 支持定制, 实力商家 / 源头工厂, 48小时发货. Sort by 成交/销量, then check
+回头率 (repeat-buyer rate) and 店铺年限 (years in business).
+
+**Fastest method:** 1688 app → camera icon (**拍立淘**) → upload a screenshot of the Pinduoduo
+product photo to find the source factory.
+
+**Alibaba.com (English):** `custom pet portrait relief keychain` · `3D embossed pet photo keychain` ·
+`UV relief custom pet tag` · `hand painted resin pet relief`
