@@ -39,7 +39,7 @@ backend/
     engine/            readiness, nutrition, fueling, hydration,
                        recovery, mobility, risk
 frontend/
-  app/                 Next.js app router dashboard
+  app/                 Next.js app router: landing page (/) + dashboard (/dashboard)
 docker-compose.yml     db + backend API + sync daemon + frontend
 ```
 
@@ -50,7 +50,8 @@ docker compose up --build
 ```
 
 - API: http://localhost:8000 (interactive docs at `/docs`)
-- Dashboard: http://localhost:3000
+- Landing page: http://localhost:3000
+- Dashboard: http://localhost:3000/dashboard
 
 Without Docker:
 

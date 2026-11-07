@@ -1,13 +1,13 @@
 "use client";
 
-import StatGrid from "./components/StatGrid";
-import ReadinessCard from "./components/ReadinessCard";
-import TrainingLoadCard from "./components/TrainingLoadCard";
-import WeekPlan from "./components/WeekPlan";
-import NutritionPanel from "./components/NutritionPanel";
-import WorkoutPlan from "./components/WorkoutPlan";
-import RecoveryPanel from "./components/RecoveryPanel";
-import MobilityPanel from "./components/MobilityPanel";
+import StatGrid from "./StatGrid";
+import ReadinessCard from "./ReadinessCard";
+import TrainingLoadCard from "./TrainingLoadCard";
+import WeekPlan from "./WeekPlan";
+import NutritionPanel from "./NutritionPanel";
+import WorkoutPlan from "./WorkoutPlan";
+import RecoveryPanel from "./RecoveryPanel";
+import MobilityPanel from "./MobilityPanel";
 
 export default function Dashboard({ data, week }: { data: any; week?: any[] }) {
   return (
