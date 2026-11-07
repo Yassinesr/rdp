@@ -14,7 +14,8 @@ const CONFIG = {
 
   currency: "USD",
 
-  // Delivery promise in business days, from order to doorstep (keep it honest).
+  // Default delivery promise in business days, from order to doorstep (keep it honest).
+  // A page can override it with data-delivery-min / data-delivery-max on <body>.
   deliveryDays: { min: 7, max: 12 },
 };
 /* ======================================================================== */
@@ -56,63 +57,7 @@ const CONFIG = {
     }
   }
 
-  /* ---------------------------------------------------------- page product */
-  // Each page describes its product on <body> and #offer, so one script serves every page.
-  const offer = $("#offer");
-  const PRODUCT = document.body.dataset.product || document.title;
-  const PRODUCT_ID = document.body.dataset.productId || "product";
-  const UNIT = (offer && offer.dataset.unit) || "item";
-
-  /* ------------------------------------------------------------------ bundles */
-  const inputs = $$('input[name="bundle"]');
-  const single = inputs.find((i) => Number(i.dataset.qty) === 1);
-  const singlePrice = single ? Number(single.dataset.price) : null;
-
-  function bundleInfo(input) {
-    const qty = Number(input.dataset.qty);
-    const price = Number(input.dataset.price);
-    const name = $(".bundle-name", input.closest(".bundle")).textContent.trim();
-    return { qty, price, name, variant: input.dataset.variant.trim(), id: input.value };
-  }
-
-  // Fill in price labels, per-unit price and savings from the data attributes.
-  // A bundle can set data-note to show its own line instead.
-  inputs.forEach((input) => {
-    const { qty, price } = bundleInfo(input);
-    const label = input.closest(".bundle");
-    $("[data-price-label]", label).textContent = money(price);
-    const meta = $("[data-meta]", label);
-    if (input.dataset.note) {
-      meta.textContent = input.dataset.note;
-    } else if (qty > 1 && singlePrice) {
-      const save = singlePrice * qty - price;
-      const parts = [`${money(price / qty)} per ${UNIT}`];
-      if (save > 0.004) parts.push(`save ${money(save)}`);
-      meta.textContent = parts.join(" · ");
-    } else {
-      meta.textContent = "";
-    }
-  });
-
-  const fromPrice = singlePrice ?? Math.min(...inputs.map((i) => Number(i.dataset.price)));
-  $$("[data-from-price]").forEach((el) => (el.textContent = money(fromPrice)));
-
-  function selected() {
-    const input = inputs.find((i) => i.checked) || inputs[0];
-    return bundleInfo(input);
-  }
-
-  function render() {
-    const b = selected();
-    $$("[data-total]").forEach((el) => (el.textContent = money(b.price)));
-    $$("[data-sticky-price]").forEach((el) => (el.textContent = money(b.price)));
-    $$("[data-sticky-name]").forEach((el) => (el.textContent = b.name));
-  }
-
-  inputs.forEach((i) => i.addEventListener("change", render));
-  render();
-
-  /* ----------------------------------------------------------------- checkout */
+  /* ------------------------------------------------------------------- toast */
   const toastEl = $("[data-toast]");
   let toastTimer;
   function toast(msg) {
@@ -123,31 +68,15 @@ const CONFIG = {
     toastTimer = setTimeout(() => toastEl.classList.remove("is-visible"), 3200);
   }
 
-  $$("[data-buy]").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      const b = selected();
-      const props = {
-        contents: [{ content_id: `${PRODUCT_ID}-${b.id}`, content_name: `${PRODUCT} (${b.name})`, quantity: 1, price: b.price }],
-        value: b.price,
-        currency: CONFIG.currency,
-      };
-      track("AddToCart", props);
+  /* ---------------------------------------------------------- page product */
+  // Each page describes its product on <body> and #offer, so one script serves every page.
+  const body = document.body;
+  const offer = $("#offer");
+  const PRODUCT = body.dataset.product || document.title;
+  const PRODUCT_ID = body.dataset.productId || "product";
+  const UNIT = (offer && offer.dataset.unit) || "item";
 
-      if (!CONFIG.store || !b.variant) {
-        const note = $("[data-checkout-note]");
-        if (note) note.hidden = false;
-        toast("Checkout isn't connected yet");
-        console.warn("[Pawse] Set CONFIG.store in assets/app.js and data-variant on each bundle in index.html.");
-        return;
-      }
-
-      track("InitiateCheckout", props);
-      // Shopify cart permalink: sends the shopper straight to checkout with this variant.
-      window.location.href = `${CONFIG.store}/cart/${encodeURIComponent(b.variant)}:1`;
-    })
-  );
-
-  /* ---------------------------------------------------------- delivery dates */
+  /* --------------------------------------------------------- business days */
   function addBusinessDays(date, days) {
     const d = new Date(date);
     let added = 0;
@@ -158,11 +87,128 @@ const CONFIG = {
     }
     return d;
   }
+  function subtractBusinessDays(date, days) {
+    const d = new Date(date);
+    let removed = 0;
+    while (removed < days) {
+      d.setDate(d.getDate() - 1);
+      const day = d.getDay();
+      if (day !== 0 && day !== 6) removed++;
+    }
+    return d;
+  }
   const fmt = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
   const today = new Date();
-  const from = addBusinessDays(today, CONFIG.deliveryDays.min);
-  const to = addBusinessDays(today, CONFIG.deliveryDays.max);
+  const delivery = {
+    min: Number(body.dataset.deliveryMin) || CONFIG.deliveryDays.min,
+    max: Number(body.dataset.deliveryMax) || CONFIG.deliveryDays.max,
+  };
+
+  // Shared helpers for page-specific scripts (e.g. assets/portrait.js).
+  window.Pawse = { CONFIG, money, track, toast, PRODUCT, PRODUCT_ID, delivery, addBusinessDays };
+
+  /* ------------------------------------------------------- simple bundles */
+  // Pages with plain bundle radios (name="bundle") get pricing, savings and a
+  // cart-permalink checkout. Pages with their own order form skip this.
+  const inputs = $$('input[name="bundle"]');
+  let selected = () => null;
+
+  if (inputs.length) {
+    const single = inputs.find((i) => Number(i.dataset.qty) === 1);
+    const singlePrice = single ? Number(single.dataset.price) : null;
+
+    const bundleInfo = (input) => ({
+      qty: Number(input.dataset.qty),
+      price: Number(input.dataset.price),
+      name: $(".bundle-name", input.closest(".bundle")).textContent.trim(),
+      variant: (input.dataset.variant || "").trim(),
+      id: input.value,
+    });
+
+    // Price labels, per-unit price and savings come from the data attributes.
+    // A bundle can set data-note to show its own line instead.
+    inputs.forEach((input) => {
+      const { qty, price } = bundleInfo(input);
+      const label = input.closest(".bundle");
+      $("[data-price-label]", label).textContent = money(price);
+      const meta = $("[data-meta]", label);
+      if (input.dataset.note) {
+        meta.textContent = input.dataset.note;
+      } else if (qty > 1 && singlePrice) {
+        const save = singlePrice * qty - price;
+        const parts = [`${money(price / qty)} per ${UNIT}`];
+        if (save > 0.004) parts.push(`save ${money(save)}`);
+        meta.textContent = parts.join(" · ");
+      } else {
+        meta.textContent = "";
+      }
+    });
+
+    const fromPrice = singlePrice ?? Math.min(...inputs.map((i) => Number(i.dataset.price)));
+    $$("[data-from-price]").forEach((el) => (el.textContent = money(fromPrice)));
+
+    selected = () => bundleInfo(inputs.find((i) => i.checked) || inputs[0]);
+
+    const render = () => {
+      const b = selected();
+      $$("[data-total]").forEach((el) => (el.textContent = money(b.price)));
+      $$("[data-sticky-price]").forEach((el) => (el.textContent = money(b.price)));
+      $$("[data-sticky-name]").forEach((el) => (el.textContent = b.name));
+    };
+    inputs.forEach((i) => i.addEventListener("change", render));
+    render();
+
+    $$("[data-buy]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const b = selected();
+        const props = {
+          contents: [{ content_id: `${PRODUCT_ID}-${b.id}`, content_name: `${PRODUCT} (${b.name})`, quantity: 1, price: b.price }],
+          value: b.price,
+          currency: CONFIG.currency,
+        };
+        track("AddToCart", props);
+
+        if (!CONFIG.store || !b.variant) {
+          const note = $("[data-checkout-note]");
+          if (note) note.hidden = false;
+          toast("Checkout isn't connected yet");
+          console.warn("[Pawse] Set CONFIG.store in assets/app.js and data-variant on each bundle.");
+          return;
+        }
+
+        track("InitiateCheckout", props);
+        // Shopify cart permalink: sends the shopper straight to checkout with this variant.
+        window.location.href = `${CONFIG.store}/cart/${encodeURIComponent(b.variant)}:1`;
+      })
+    );
+  }
+
+  /* ---------------------------------------------------------- delivery dates */
+  const from = addBusinessDays(today, delivery.min);
+  const to = addBusinessDays(today, delivery.max);
   $$("[data-delivery]").forEach((el) => (el.textContent = `${fmt.format(from)} – ${fmt.format(to)}`));
+
+  // "Order by ___ for <occasion>": the next occasion whose order-by date (occasion date minus
+  // the slowest delivery estimate) hasn't passed. Set data-deadlines on <body> as JSON:
+  // [{"name":"Christmas","date":"2026-12-25"}, ...]
+  try {
+    const deadlines = JSON.parse(body.dataset.deadlines || "[]");
+    const next = deadlines
+      .map((d) => ({ ...d, orderBy: subtractBusinessDays(new Date(`${d.date}T12:00:00`), delivery.max) }))
+      .filter((d) => d.orderBy >= new Date(today.toDateString()))
+      .sort((a, b) => a.orderBy - b.orderBy)[0];
+    $$("[data-order-by-wrap]").forEach((wrap) => {
+      if (!next) {
+        wrap.hidden = true;
+        return;
+      }
+      $$("[data-order-by]", wrap).forEach((el) => (el.textContent = fmt.format(next.orderBy)));
+      $$("[data-order-by-name]", wrap).forEach((el) => (el.textContent = next.name));
+      wrap.hidden = false;
+    });
+  } catch (err) {
+    console.warn("[Pawse] Couldn't read data-deadlines", err);
+  }
 
   /* -------------------------------------------------------- footer + config */
   $$("[data-year]").forEach((el) => (el.textContent = String(today.getFullYear())));
@@ -201,8 +247,7 @@ const CONFIG = {
     const b = selected();
     track("ViewContent", {
       contents: [{ content_id: PRODUCT_ID, content_name: PRODUCT }],
-      value: b.price,
-      currency: CONFIG.currency,
+      ...(b ? { value: b.price, currency: CONFIG.currency } : {}),
     });
   }
 })();
