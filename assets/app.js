@@ -56,6 +56,13 @@ const CONFIG = {
     }
   }
 
+  /* ---------------------------------------------------------- page product */
+  // Each page describes its product on <body> and #offer, so one script serves every page.
+  const offer = $("#offer");
+  const PRODUCT = document.body.dataset.product || document.title;
+  const PRODUCT_ID = document.body.dataset.productId || "product";
+  const UNIT = (offer && offer.dataset.unit) || "item";
+
   /* ------------------------------------------------------------------ bundles */
   const inputs = $$('input[name="bundle"]');
   const single = inputs.find((i) => Number(i.dataset.qty) === 1);
@@ -68,15 +75,18 @@ const CONFIG = {
     return { qty, price, name, variant: input.dataset.variant.trim(), id: input.value };
   }
 
-  // Fill in price labels, per-mat price and savings from the data attributes.
+  // Fill in price labels, per-unit price and savings from the data attributes.
+  // A bundle can set data-note to show its own line instead.
   inputs.forEach((input) => {
     const { qty, price } = bundleInfo(input);
     const label = input.closest(".bundle");
     $("[data-price-label]", label).textContent = money(price);
     const meta = $("[data-meta]", label);
-    if (qty > 1 && singlePrice) {
+    if (input.dataset.note) {
+      meta.textContent = input.dataset.note;
+    } else if (qty > 1 && singlePrice) {
       const save = singlePrice * qty - price;
-      const parts = [`${money(price / qty)} per mat`];
+      const parts = [`${money(price / qty)} per ${UNIT}`];
       if (save > 0.004) parts.push(`save ${money(save)}`);
       meta.textContent = parts.join(" · ");
     } else {
@@ -117,7 +127,7 @@ const CONFIG = {
     btn.addEventListener("click", () => {
       const b = selected();
       const props = {
-        contents: [{ content_id: b.id, content_name: `Pawse Lick Mat (${b.name})`, quantity: 1, price: b.price }],
+        contents: [{ content_id: `${PRODUCT_ID}-${b.id}`, content_name: `${PRODUCT} (${b.name})`, quantity: 1, price: b.price }],
         value: b.price,
         currency: CONFIG.currency,
       };
@@ -166,7 +176,6 @@ const CONFIG = {
   /* -------------------------------------------------------------- sticky bar */
   const sticky = $("[data-sticky]");
   const heroCta = $("#hero-cta");
-  const offer = $("#offer");
   if (sticky && heroCta && offer && "IntersectionObserver" in window) {
     let pastHero = false;
     let atOffer = false;
@@ -191,7 +200,7 @@ const CONFIG = {
     loadTikTokPixel(CONFIG.tiktokPixelId);
     const b = selected();
     track("ViewContent", {
-      contents: [{ content_id: "pawse-lick-mat", content_name: "Pawse Suction Lick Mat" }],
+      contents: [{ content_id: PRODUCT_ID, content_name: PRODUCT }],
       value: b.price,
       currency: CONFIG.currency,
     });

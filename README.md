@@ -1,56 +1,66 @@
-# Pawse: suction lick mat landing page
+# Pawse: pet product landing pages
 
-A single-product landing page for a suction-cup dog lick mat, built for traffic from TikTok
-videos and ads. It's plain HTML, CSS and JavaScript with no build step, so it loads fast in
-TikTok's in-app browser and can be hosted anywhere for free.
+Single-product landing pages for a small pet brand, built for traffic from TikTok videos and ads.
+They're plain HTML, CSS and JavaScript with no build step, so they load fast in TikTok's in-app
+browser and can be hosted anywhere for free.
 
-The buy button sends shoppers straight to **Shopify checkout**, so payments, orders and policies
-live in your Shopify store.
+| Page | Product | Live URL (GitHub Pages) |
+|---|---|---|
+| `index.html` | Suction-cup dog lick mat | https://yassinesr.github.io/rdp/ |
+| `cat/index.html` | Desk Perch, a cat hammock that clamps to a desk | https://yassinesr.github.io/rdp/cat/ |
+
+Every buy button sends shoppers straight to **Shopify checkout**, so payments, orders and policies
+live in one Shopify store. Both pages share the same styles, script and store settings.
 
 ```
-index.html          the page
-assets/styles.css   all styling (colours are at the top)
-assets/app.js       settings + bundles, checkout, delivery dates, sticky bar, TikTok Pixel
-assets/og.png       preview image shown when the link is shared
+index.html          lick mat page
+cat/index.html      cat desk perch page
+assets/styles.css   shared styling (colours are at the top)
+assets/app.js       shared settings + bundles, checkout, delivery dates, sticky bar, TikTok Pixel
+assets/og.png       share preview for the lick mat page
+assets/og-cat.png   share preview for the cat page
 assets/favicon.svg  browser tab icon
 ```
 
-## Preview it locally
+## Preview locally
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then open http://localhost:8080. Until you connect Shopify, the buy button shows
-"Checkout isn't connected yet". That's expected.
+Then open http://localhost:8080 and http://localhost:8080/cat/. Until you connect Shopify, the buy
+button shows "Checkout isn't connected yet". That's expected.
 
-## Connect it to your store
+## Connect the pages to your store
 
-### 1. Create the product in Shopify
+### 1. Create the products in Shopify
 
-Create one product, **Pawse Suction Lick Mat**, with three variants that match the page:
+Create one product per page, with one variant per bundle. Prices must match the page:
 
-| Variant | Price on the page |
-|---|---|
-| 1 mat | $17.99 |
-| 2 mats | $27.99 |
-| 3 mats + spreader | $34.99 |
+| Product | Variant | Price |
+|---|---|---|
+| Pawse Suction Lick Mat | 1 mat | $17.99 |
+| | 2 mats | $27.99 |
+| | 3 mats + spreader | $34.99 |
+| Pawse Desk Perch | 1 perch | $29.99 |
+| | 1 perch + spare cover | $34.99 |
+| | 2 perches | $49.99 |
 
 Find each variant's ID: open the product in Shopify admin, click the variant, and copy the number
 at the end of the URL (`.../variants/44012345678901`).
 
-### 2. Paste the IDs and prices into `index.html`
+### 2. Paste the IDs and prices into each page
 
-Each bundle in the "Pick your bundle" section has `data-price` and `data-variant`:
+Each bundle in a page's "Pick your bundle" section has `data-price` and `data-variant`:
 
 ```html
-<input type="radio" name="bundle" value="duo" data-qty="2" data-price="27.99" data-variant="44012345678901" checked>
+<input type="radio" name="bundle" value="duo" data-qty="2" data-price="27.99" data-variant="44012345678901">
 ```
 
-The price labels, per-mat price and "save $X" text are calculated from `data-price`, so you only
-change the number in one place. Keep the page prices identical to Shopify's.
+Price labels, the per-item price and "save $X" text are calculated from `data-price`.
+A bundle with `data-note="..."` shows that text instead, as the "perch + spare cover" bundle does.
 
-### 3. Fill in the settings at the top of `assets/app.js`
+### 3. Fill in the shared settings at the top of `assets/app.js`
 
 ```js
 const CONFIG = {
@@ -64,79 +74,90 @@ const CONFIG = {
 
 - **store**: checkout uses Shopify's cart link (`/cart/VARIANT_ID:1`), and the footer links to
   your Shopify policy pages (`/policies/refund-policy` and so on).
-- **tiktokPixelId**: once set, the page fires `ViewContent`, `AddToCart` and
-  `InitiateCheckout`. Install the TikTok app in Shopify too, so purchases on the checkout page are
-  tracked.
+- **tiktokPixelId**: once set, each page fires `ViewContent`, `AddToCart` and
+  `InitiateCheckout`, labelled with that page's product (`data-product` on `<body>`). Install the
+  TikTok app in Shopify too, so purchases on the checkout page are tracked.
 - **deliveryDays**: drives the "estimated delivery" dates. Set it to what your shipping line
   actually achieves.
 
-### 4. Change the brand name if you need to
+### 4. Check the brand name
 
 "Pawse" is a placeholder. Before you use it, search the
 [USPTO trademark database](https://tmsearch.uspto.gov/) and TikTok/Amazon for an existing pet
-brand with the same name. To rename, search and replace `Pawse` across `index.html` and
-`assets/app.js`, then regenerate `assets/og.png`.
+brand with the same name. To rename, search and replace `Pawse` across both pages, then
+regenerate the share images.
 
 ## Put it online
 
 **GitHub Pages (free):** repo **Settings → Pages → Deploy from a branch → `main` / root**.
-The site appears at `https://<your-username>.github.io/<repo>/`.
 
 **Netlify (free):** drag the project folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
 
-`og:url` and `og:image` in `index.html` point at the GitHub Pages address
-(`https://yassinesr.github.io/rdp/`). If you move to a custom domain or another host, update both,
-because social apps need an absolute URL to show the preview.
+`og:url` and `og:image` on each page point at the GitHub Pages address. If you move to a custom
+domain or another host, update both, because social apps need an absolute URL to show the
+preview.
 
 ## Before you run ads: launch checklist
 
-The page makes promises. Each one has to be true.
+Each page makes promises, and each one has to be true.
 
-- [ ] **Specs match your supplier.** Size (about 20 × 20 cm), food-grade BPA-free silicone,
-      suction-cup back, dishwasher and freezer safe. Edit the "The details" section if anything
-      differs.
+**Both pages**
 - [ ] **Shipping promise is real.** "Ships in 1–3 business days" and "7–12 business days delivery"
-      must match your fulfilment line. Use a **DDP** line (duties paid), because the page promises
+      must match your fulfilment line. Use a **DDP** line (duties paid), because the pages promise
       "duties included, no surprise fees".
-- [ ] **Your refund policy offers the 30-day money-back guarantee**, or remove that promise from the
-      page. Shopify can generate policy templates under **Settings → Policies**.
-- [ ] **Real photos or video.** Swap the hero illustration for your own footage of a dog using the
-      mat. That's what converts on TikTok.
-- [ ] **Only real reviews.** The page ships with no reviews or "as seen on" claims on purpose. Add
-      genuine customer reviews and videos once you have them. Fake reviews break FTC rules and
-      TikTok's ad policy.
+- [ ] **Your refund policy offers the 30-day money-back guarantee**, or remove that promise.
+      Shopify can generate policy templates under **Settings → Policies**.
+- [ ] **Real photos or video.** Swap each hero illustration for your own footage of a pet using
+      the product. That's what converts on TikTok.
+- [ ] **Only real reviews.** The pages ship with no reviews, "best seller" or "as seen on" claims on
+      purpose. Add genuine customer reviews and videos once you have them. Fake reviews break FTC
+      rules and TikTok's ad policy.
 - [ ] **Test checkout end to end** on a phone, including the TikTok in-app browser.
+
+**Lick mat specs** (edit "The details" if your supplier's differ): about 20 × 20 cm, food-grade
+BPA-free silicone, suction-cup back, dishwasher and freezer safe.
+
+**Desk perch specs** (edit "The details", the chips at the top and the FAQ if they differ): bed about
+40 × 30 cm, **holds cats up to 9 kg (20 lb)**, fits desk tops up to about 6 cm thick, steel frame
+with padded clamp, removable machine-washable cover, no tools needed. The weight limit and clamp
+range are safety claims, so confirm them with the supplier *and* test a sample yourself.
 
 ## Sourcing checklist (1688 / Alibaba / Yiwu)
 
-Ask the supplier for:
+**Lick mat**
+- Food-contact silicone test report (FDA 21 CFR 177.2600 for the US, LFGB for the EU), BPA-free.
+- Weight per mat (aim for under 150 g) and suction strength on tile and glass.
+- Silicone spreader spatula for the 3-mat bundle.
 
-- **Material test report** for food-contact silicone (FDA 21 CFR 177.2600 for the US, LFGB for
-  the EU) and confirmation it is BPA-free.
-- **Weight per mat**, aiming for under 150 g so a 2-pack ships cheaply.
-- **Suction strength sample.** Test it yourself on tile and glass with a pulling dog.
-- **Colour options and MOQ for a printed logo and your own retail box.**
-- **Spreader spatula** (silicone) for the 3-pack bonus.
-- **DDP shipping line to the US**: price per 100 g, real door-to-door days, and whether duties
-  and the customs entry fee are included.
+**Desk perch**
+- **Load rating and a load-test video** at the advertised weight, with the clamp on a real desk.
+- **Clamp opening range** (minimum and maximum desk thickness) and whether the grips are padded.
+- **Shipping box size and weight.** Air lines charge by whichever is bigger: real weight or
+  *volumetric* weight (length × width × height in cm ÷ 6000, or the divisor your line uses).
+  A 40 × 30 × 6 cm box counts as 1.2 kg even if it weighs less, so ask for flat-pack packaging.
+- **Spare covers** sold separately, for the "perch + spare cover" bundle.
 
-Ask your supplier or freight forwarder which HS (customs) code they declare the mat under, then
-check its US duty rate at [hts.usitc.gov](https://hts.usitc.gov/), plus any extra China tariffs
-in force when you ship.
+**Both**
+- MOQ for a printed logo and your own retail box.
+- **DDP shipping line to the US**: price per 100 g (or per kg), real door-to-door days, and whether
+  duties and the customs entry fee are included.
+- Ask your supplier or freight forwarder which HS (customs) code they declare each product under,
+  then check its US duty rate at [hts.usitc.gov](https://hts.usitc.gov/), plus any extra China
+  tariffs in force when you ship.
 
 ## Unit economics worksheet
 
 Fill this in per bundle before setting prices or ad budgets:
 
-| Line | 1 mat | 2 mats | 3 mats + spreader |
+| Line | Bundle A | Bundle B | Bundle C |
 |---|---|---|---|
-| Price | 17.99 | 27.99 | 34.99 |
-| − Product cost (mats, spatula, packaging) | | | |
+| Price | | | |
+| − Product cost (incl. packaging) | | | |
 | − DDP shipping + duties to the US | | | |
 | − Payment fees (about 3% + $0.30) | | | |
 | − Refund/loss allowance (about 5%) | | | |
 | **= Contribution before ads** | | | |
 | Break-even cost per purchase on ads | = contribution | | |
 
-If your TikTok cost per purchase is above the break-even line, raise prices, cut costs, or push
-the 2- and 3-mat bundles harder.
+If your TikTok cost per purchase is above the break-even line, raise prices, cut costs, or push the
+bigger bundles harder.
