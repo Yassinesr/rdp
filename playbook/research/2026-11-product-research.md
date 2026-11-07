@@ -4,9 +4,11 @@ The first research round using the [playbook method](../01-product-research.md).
 product that sells on TikTok, ships cheaply from China, and earns **at least $15 per order before
 ads** ([cost rule](../02-cost-model.md#21-the-formulas)).
 
-**Result: lead with a custom pet photo necklace** (a pet portrait laser-engraved on a pendant).
-It fits the Pawse pet brand, weighs about 30 g, costs about $4–8 from suppliers, and sells for
-$35–60. Keep the lick mat as the second product. Seven other candidates were dropped (section 4).
+**Result: lead with a custom pet keepsake** (the customer's pet photo made into a keychain or
+necklace). It fits the Pawse pet brand, weighs 20–40 g, costs about $2–8 to buy, and sells for
+$18–60 in the US. After the Pinduoduo price check (section 6b), the hero product will be **either
+a 3D leather keychain or a stainless necklace**, chosen after samples. Keep the lick mat as the
+second product. Seven other candidates were dropped (section 4).
 
 ## 1. Sources used
 
@@ -110,7 +112,55 @@ laser-engraved on a stainless pendant, with the name on the back.
 - **Material claims:** say "stainless steel" only if the supplier confirms it (ask for 316L), and
   get nickel and lead test reports for the EU.
 
+## 6b. Update: Pinduoduo price check (your screenshots, 7 Nov 2026)
+
+Four Pinduoduo listings show the same idea comes in **four formats**: necklace, keychain, collar
+tag and leather keychain. Prices are **Chinese retail** (the seller's margin is included), so
+factory prices on 1688 should be lower.
+
+| # | Format | PDD price | ≈ USD | Sales signal | Notes |
+|---|---|---|---|---|---|
+| 1 | **3D faux-leather keychain cut to the pet's outline**, color relief | ¥41.15 (was ¥66) | $5.72 | 1,671 sold; 1K+ positive reviews; 10K+ favorites | Most striking on video; check durability and smell |
+| 2 | **Deep-engraved metal photo tag** (keychain or collar ID tag) | ¥17.1 (was ¥22.5) | $2.38 | **4,821 sold**; 2K+ positive reviews; 257 repeat buyers | Cheapest; also does people and couple photos |
+| 3 | **Illustrated color portrait tag**, themed borders, leather loop | ¥27.9 (¥12 off for new buyers) | $3.88 | 416 sold | Comes with a phone chain |
+| 4 | **Stainless pendant necklace**, illustrated portrait | ¥59.9 (was ¥79.9) | $8.32 | 134 want to buy; **store** sold 79k items recently, 8,587 repeat buyers | Ships within 48 h; free returns |
+
+**US prices for these formats:**
+- Leather pet portrait keychains on Etsy: about **$18–35** ([Etsy](https://www.etsy.com/listing/1653498303), [FindNiche Etsy data](https://findniche.com/etsy-product/custom-engraved-pet-portrait-keychain-pe-1794820433)).
+- Photo-engraved keychains and tags: about **$17–30** on Etsy, up to $49 elsewhere; plain engraved name tags $4–15 ([Uncommon Goods](https://www.uncommongoods.com/product/personalized-pet-portrait-key-chain), [Jewelry by Johan](https://jewelrybyjohan.com/products/dog-tag-keychain-engraving-gift-5461), [Etsy](https://www.etsy.com/listing/949932164)).
+- Photo necklaces: top Etsy listings about $40–60 (section 3).
+- **Quality warning:** an Uncommon Goods reviewer said their engraved pet photo was "barely visible". Engraving clarity is the main thing the samples must prove.
+
+**Profit check at realistic US prices** (product cost = PDD retail price, so the real cost should be
+lower; shipping + duties **assumed** $3–8 for a 20–40 g parcel; packaging $0.50; card fees 2.9% +
+$0.30; refunds 3%):
+
+| Format | US price | Contribution before ads | Verdict |
+|---|---|---|---|
+| 3D leather keychain | $34.99 | **$18.41–23.41** | **Pass**: best mix of wow factor and margin |
+| Stainless necklace | $39.99 | **$20.51–25.51** | **Pass** |
+| Illustrated color tag | $27.99 | $13.66–18.66 | Borderline |
+| Engraved metal tag | $19.99 | $7.63–12.63 | Fails alone; **use as an add-on** ("+ matching collar tag $12") |
+
+**Revised recommendation:** sell a **pet keepsake line** under Pawse with **one hero product**,
+picked after samples arrive:
+- **The 3D leather keychain** if its quality holds up (best video "reveal" and a lower price than the necklace)
+- **Otherwise the stainless necklace**
+
+Offer the metal tag as an add-on to raise the order value (keychain + matching collar tag is about
+$44.99). The PDD sellers' photos are their property, so use your own sample photos and videos on
+the page.
+
 ## 7. Your next steps (in the apps)
+
+**Do first (fastest, cheapest):** order **all four PDD listings above** as samples (about ¥146 in
+total, delivered in days). Use the same two photos for each (one sharp, one blurry phone photo)
+so you can compare quality directly. Then:
+- **Message each PDD shop:** Are you the factory? Do you supply overseas sellers (跨境/海外一件代发)?
+  Price at 50/100 pieces? Production days? Do you send a design proof before making it? Photo
+  requirements?
+- **In the 1688 app, use image search** (the camera icon, 拍立淘) with each product photo to find
+  the factory selling it wholesale, then compare prices.
 
 1. **Search 1688 and filter for dropshipping (一件代发) and custom (支持定制):**
    - `宠物照片 刻字 项链 一件代发`
