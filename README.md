@@ -1,5 +1,9 @@
 # Pawse: pet product landing pages
 
+> **Running the shop:** the [`playbook/`](playbook/README.md) folder has the full guide set:
+> product research, cost model, store and website, TikTok channels and ads, sourcing and
+> fulfillment, legal/tax/payments, and the launch plan.
+
 Single-product landing pages for a small pet brand, built for traffic from TikTok videos and ads.
 They're plain HTML, CSS and JavaScript with no build step, so they load fast in TikTok's in-app
 browser and can be hosted anywhere for free.
