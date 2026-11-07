@@ -205,6 +205,38 @@ on screen, e.g. a kitten whose paws break out of the coin frame, before producti
 fading, the leather smell, real weight, production days, and how the seller turns a phone photo
 into the artwork (do they send a proof?).
 
+## 6d. Update: AliExpress, Alibaba, Temu and US competitors (7 Nov 2026)
+
+**Export marketplaces barely carry the colored 3D relief style.** It's common on Pinduoduo but
+mostly missing on the sites US shoppers compare against:
+
+| Where | What's there | Price |
+|---|---|---|
+| AliExpress ([pet portrait keychains](https://www.aliexpress.com/w/wholesale-custom-pet-portrait-keychain.html)) | Flat engraved stainless (one listing 1,000+ sold) and printed acrylic (one 10,000+ sold). **One** "3D relief brass" listing, 1 sold | $0.92–2.89; relief $3.49 |
+| AliExpress ([3D relief pet keychain](https://www.aliexpress.com/w/wholesale-3d-relief-pet-keychain.html)) | 3D figures and plush, **no portrait reliefs** | about $1–2 |
+| Alibaba | Search pages don't load without JavaScript; indexed listings show flat or engraved photo keychains and photo-to-3D figurines, no relief portrait tags ([Alibaba](https://www.alibaba.com/showroom/3d-resin-keyring.html)) | n/a |
+| **Temu** | Only a **flat** laser-engraved pet keychain ([Temu](https://www.temu.com/keychain-for-men-personalized-customized-picture-keychain-customized-pet-cat-and-dog-photo-pendant-keychain-gift-for-pet-lovers-g-601099560320232.html)) | n/a |
+
+**US brands already sell this exact product at premium prices:**
+
+| Seller | Product | Price |
+|---|---|---|
+| **MemoryMint** | Raised-relief pet portrait keychain on leather, free preview from your photo | **$49** ([MemoryMint](https://getmemorymint.com/products/custom-3d-pet-portrait-keychain-premium-leather-metal)) |
+| **Pockella** (by Meshy, a 3D AI company) | Full-color relief face framed in leather | **from $39** ([Pockella](https://www.pockella.com/)) |
+| Etsy | 3D relief keychains from about $32; hand-painted $20–37; **2 pets $39, 3 pets $56**; leather 3D portraits $83–219 | ([3D dog keychains](https://www.etsy.com/market/custom_dog_keychain_3d), [painted portrait keychains](https://www.etsy.com/market/painted_pet_portrait_keychain)) |
+
+**What this means:**
+1. **Demand is real** at $39–49 for the leather relief keychain. Two US brands sell it with a
+   photo preview, which matches the factory's 3D-model proof step.
+2. **Little low-price competition** from AliExpress or Temu in this style, unlike flat engraved
+   tags (which sell for $1–3 there).
+3. **A two-tier line-up fits the market:**
+   - **Entry:** illustrated relief tag (¥27.9-type) at about $29.99, below the US brands
+   - **Premium:** hand-painted relief on leather (¥91–138-type) at **$44–49**, matching
+     MemoryMint and Pockella. At $49 and a ¥140 cost: about $16–21 per order before ads (shipping
+     assumed $4–9, box $1), and more if 1688 is cheaper
+   - **Multi-pet:** follow Etsy's pattern (2 pets about +$15–20)
+
 ## 7. Your next steps (in the apps)
 
 **Do first (fastest, cheapest):** order **all four PDD listings above** as samples (about ¥146 in
