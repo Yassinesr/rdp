@@ -84,8 +84,9 @@ The site appears at `https://<your-username>.github.io/<repo>/`.
 
 **Netlify (free):** drag the project folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
 
-After deploying, change `og:image` in `index.html` to the full URL
-(`https://your-site/assets/og.png`). Social apps need an absolute URL to show the preview.
+`og:url` and `og:image` in `index.html` point at the GitHub Pages address
+(`https://yassinesr.github.io/rdp/`). If you move to a custom domain or another host, update both,
+because social apps need an absolute URL to show the preview.
 
 ## Before you run ads: launch checklist
 
