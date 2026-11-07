@@ -7,7 +7,7 @@ browser and can be hosted anywhere for free.
 | Page | Product | Live URL (GitHub Pages) |
 |---|---|---|
 | `index.html` | Suction-cup dog lick mat | https://yassinesr.github.io/rdp/ |
-| `cat/index.html` | Desk Perch, a cat hammock that clamps to a desk | https://yassinesr.github.io/rdp/cat/ |
+| `cat/index.html` | Desk Perch, a round cat bed that clamps to a desk | https://yassinesr.github.io/rdp/cat/ |
 
 Every buy button sends shoppers straight to **Shopify checkout**, so payments, orders and policies
 live in one Shopify store. Both pages share the same styles, script and store settings.
@@ -42,9 +42,9 @@ Create one product per page, with one variant per bundle. Prices must match the 
 | Pawse Suction Lick Mat | 1 mat | $17.99 |
 | | 2 mats | $27.99 |
 | | 3 mats + spreader | $34.99 |
-| Pawse Desk Perch | 1 perch | $29.99 |
-| | 1 perch + spare cover | $34.99 |
-| | 2 perches | $49.99 |
+| Pawse Desk Perch | 1 perch (plush cover) | $29.99 |
+| | All-season set (plush + mesh covers) | $36.99 |
+| | 2 perches (plush) | $49.99 |
 
 Find each variant's ID: open the product in Shopify admin, click the variant, and copy the number
 at the end of the URL (`.../variants/44012345678901`).
@@ -58,7 +58,7 @@ Each bundle in a page's "Pick your bundle" section has `data-price` and `data-va
 ```
 
 Price labels, the per-item price and "save $X" text are calculated from `data-price`.
-A bundle with `data-note="..."` shows that text instead, as the "perch + spare cover" bundle does.
+A bundle with `data-note="..."` shows that text instead, as the desk perch bundles do.
 
 ### 3. Fill in the shared settings at the top of `assets/app.js`
 
@@ -117,10 +117,12 @@ Each page makes promises, and each one has to be true.
 **Lick mat specs** (edit "The details" if your supplier's differ): about 20 × 20 cm, food-grade
 BPA-free silicone, suction-cup back, dishwasher and freezer safe.
 
-**Desk perch specs** (edit "The details", the chips at the top and the FAQ if they differ): bed about
-40 × 30 cm, **holds cats up to 9 kg (20 lb)**, fits desk tops up to about 6 cm thick, steel frame
-with padded clamp, removable machine-washable cover, no tools needed. The weight limit and clamp
-range are safety claims, so confirm them with the supplier *and* test a sample yourself.
+**Desk perch specs** come from the supplier listing below: round bed about 37 cm across, steel
+frame, swivels and tightens in place, plush or mesh cover that slides off the frame, spring teaser
+toy (about 33 cm), **holds cats up to 11 kg (25 lb)**. The listing says "25 lbs (12 kg)", which
+don't match, so the page uses the lower figure. The weight limit is a safety claim: test a sample
+on a real desk before selling. Once the supplier confirms the clamp's desk-thickness range, add it
+to "Fits" in the details and to the "Will it fit my desk?" FAQ answer.
 
 ## Sourcing checklist (1688 / Alibaba / Yiwu)
 
@@ -129,13 +131,29 @@ range are safety claims, so confirm them with the supplier *and* test a sample y
 - Weight per mat (aim for under 150 g) and suction strength on tile and glass.
 - Silicone spreader spatula for the 3-mat bundle.
 
-**Desk perch**
-- **Load rating and a load-test video** at the advertised weight, with the clamp on a real desk.
-- **Clamp opening range** (minimum and maximum desk thickness) and whether the grips are padded.
-- **Shipping box size and weight.** Air lines charge by whichever is bigger: real weight or
-  *volumetric* weight (length × width × height in cm ÷ 6000, or the divisor your line uses).
-  A 40 × 30 × 6 cm box counts as 1.2 kg even if it weighs less, so ask for flat-pack packaging.
-- **Spare covers** sold separately, for the "perch + spare cover" bundle.
+**Desk perch: current supplier (1688 offer 978904434328)**
+
+Ships from Zhejiang. Item no. 3007, brand 茜朵, made for export (跨境出口专供), and no licensable
+brand, so you can sell it under your own. Its listed downstream platforms include Amazon and
+independent stores.
+
+| Version (规格) | Gross weight | Box size | Billed weight* |
+|---|---|---|---|
+| 3007 plush (绒布款) | 875 g | 37 × 25 × 7.5 cm | about 1.16 kg |
+| 3007 mesh (网眼布款) | 845 g | 37 × 25 × 7.5 cm | about 1.16 kg |
+| 3007 clear PS bowl (透明罩款) | 1,488 g | 37.8 × 36.7 × 8 cm | about 1.85 kg |
+
+\*Air lines charge by whichever is bigger: real weight or *volumetric* weight (length × width ×
+height in cm ÷ 6000). Some lines divide by 5000, which makes it higher. Use the plush and mesh
+versions: the clear bowl costs about 60% more to ship and can crack in transit.
+
+Still to confirm with the supplier:
+- [ ] **Price per SKU** and price breaks, plus the dropshipping (一件代发) price.
+- [ ] **Clamp range**: minimum and maximum desk thickness (适用桌面厚度).
+- [ ] **Load-test video** at 11 kg, and whether the clamp has protective pads.
+- [ ] **Mesh cover sold on its own** (for the all-season set), and its price and weight.
+- [ ] **Permission to use their product photos and videos**, until you have your own.
+- [ ] **Custom logo or packaging**, and the minimum order for it.
 
 **Both**
 - MOQ for a printed logo and your own retail box.
