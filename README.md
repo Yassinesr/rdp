@@ -12,7 +12,8 @@ browser and can be hosted anywhere for free.
 |---|---|---|
 | `index.html` | Suction-cup dog lick mat | https://yassinesr.github.io/rdp/ |
 | `cat/index.html` | Desk Perch, a round cat bed that clamps to a desk (parked: see playbook) | https://yassinesr.github.io/rdp/cat/ |
-| `portrait/index.html` | **Custom 3D pet portraits**: Portrait Tag + Sculpted Relief Keychain, gift box | https://yassinesr.github.io/rdp/portrait/ |
+| `tag/index.html` | **3D Portrait Tag** (custom pet portrait, from $29), with the Relief Keychain as an add-on | https://yassinesr.github.io/rdp/tag/ |
+| `relief/index.html` | **Sculpted Relief Keychain** (premium pet portrait, from $49), with a matching Tag as an add-on | https://yassinesr.github.io/rdp/relief/ |
 
 Every buy button sends shoppers straight to **Shopify checkout**, so payments, orders and policies
 live in one Shopify store. Both pages share the same styles, script and store settings.
@@ -20,13 +21,15 @@ live in one Shopify store. Both pages share the same styles, script and store se
 ```
 index.html          lick mat page
 cat/index.html      cat desk perch page
-portrait/index.html 3D pet portrait page (two tiers, photo upload, gift box)
+tag/index.html      3D Portrait Tag page (one product, photo upload, live mock-up, add-on, gift box)
+relief/index.html   Sculpted Relief Keychain page (same layout, premium)
 assets/styles.css   shared styling (colours are at the top)
 assets/app.js       shared settings + bundles, checkout, delivery dates, order-by dates, sticky bar, TikTok Pixel
-assets/portrait.js  portrait order form: tier, pets, theme, photos, names, gift note → Shopify cart
+assets/keepsake.js  keepsake order form: pets, theme, photos, names, add-on, live mock-up → Shopify cart
 assets/og.png       share preview for the lick mat page
 assets/og-cat.png   share preview for the cat page
-assets/og-portrait.png share preview for the portrait page
+assets/og-tag.png   share preview for the Portrait Tag page
+assets/og-relief.png share preview for the Relief Keychain page
 assets/favicon.svg  browser tab icon
 ```
 
@@ -53,11 +56,13 @@ Create one product per page, with one variant per bundle. Prices must match the 
 | Pawse Desk Perch | 1 perch (plush cover) | $29.99 |
 | | All-season set (plush + mesh covers) | $36.99 |
 | | 2 perches (plush) | $49.99 |
-| Pawse 3D Portrait Tag | 1 pet (1 tag) | $29.99 |
-| | 2 pets (2 tags) | $49.99 |
-| | 3 pets (3 tags) | $64.99 |
-| Pawse Sculpted Relief Keychain | 1 pet | $48.99 |
-| | 2 pets | $89.99 |
+| Pawse 3D Portrait Tag | 1 pet / 2 pets / 3 pets | $29 / $49 / $69 |
+| | same + Relief Keychain add-on | $68 / $88 / $108 |
+| Pawse Sculpted Relief Keychain | 1 pet / 2 pets | $49 / $89 |
+| | same + Portrait Tag add-on | $68 / $108 |
+
+The full option list, with where each ID goes, is in
+[the pricing strategy](playbook/research/2026-11-pricing-strategy.md#shopify-options-to-create).
 
 Find each variant's ID: open the product in Shopify admin, click the variant, and copy the number
 at the end of the URL (`.../variants/44012345678901`).
@@ -73,22 +78,24 @@ Each bundle in a page's "Pick your bundle" section has `data-price` and `data-va
 Price labels, the per-item price and "save $X" text are calculated from `data-price`.
 A bundle with `data-note="..."` shows that text instead, as the desk perch bundles do.
 
-### Portrait page: photo uploads
+### Portrait Tag and Relief Keychain pages: photo uploads
 
-The portrait page doesn't use cart links. Its order form posts straight to your store's
+These pages don't use cart links. Their order form posts straight to your store's
 `/cart/add` (as `multipart/form-data`) with these **line-item properties**, which show on the
 order in Shopify admin:
 
 | Property | From |
 |---|---|
-| `Theme` | Rainbow / Balloons / Flowers / Hearts / Snow (Portrait Tag only) |
+| `Theme` | Rainbow / Balloons / Flowers / Hearts / Snow (Tag page) |
+| `Tag theme` | Theme for the add-on tag (Relief page, only when the add-on is ticked) |
 | `Pet 1 photo`, `Pet 2 photo`, `Pet 3 photo` | Uploaded image files (up to 15 MB each, checked in the browser) |
 | `Pet 1 name`, … | Text, up to 14 characters |
 | `Gift note` | Optional, up to 150 characters, for the card in the gift box |
 
-After adding to the cart, Shopify sends the shopper to `/checkout` (`return_to`). Put each
-option's variant ID in `data-variant` on the `name="option"` radios in `portrait/index.html`.
-Prices and savings come from `data-price`.
+After adding to the cart, Shopify sends the shopper to `/checkout` (`return_to`). On each page,
+the `name="pets"` radios carry `data-variant` (no add-on) and `data-variant-bump` (with add-on).
+Prices and savings come from `data-price`, and the add-on's price from `data-price` /
+`data-full-price` on the checkbox.
 
 **Test it before launch:** place a test order and confirm the photo link and name appear on the
 order. If your store blocks file uploads this way, the fallback is to drop the file inputs and
@@ -163,7 +170,7 @@ don't match, so the page uses the lower figure. The weight limit is a safety cla
 on a real desk before selling. Once the supplier confirms the clamp's desk-thickness range, add it
 to "Fits" in the details and to the "Will it fit my desk?" FAQ answer.
 
-**Portrait page promises** (edit the page if any of these change):
+**Portrait Tag and Relief Keychain promises** (edit the pages if any of these change):
 - **Preview within 2 business days, one free revision.** You forward the supplier's 3D preview
   to the customer by email and wait for approval. Make sure the supplier commits to this speed.
 - **Made in 3–5 business days after approval.**

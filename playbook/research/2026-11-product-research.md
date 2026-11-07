@@ -237,6 +237,9 @@ mostly missing on the sites US shoppers compare against:
      assumed $4–9, box $1), and more if 1688 is cheaper
    - **Multi-pet:** follow Etsy's pattern (2 pets about +$15–20)
 
+**Pages and prices:** the line-up is now two single-product pages, each offering the other as
+an add-on. Prices and the reasoning are in [the pricing strategy](2026-11-pricing-strategy.md).
+
 ## 7. Your next steps (in the apps)
 
 **Do first (fastest, cheapest):** order **all four PDD listings above** as samples (about ¥146 in

@@ -26,8 +26,16 @@ const CONFIG = {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  const money = (n) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: CONFIG.currency }).format(n);
+  // Whole-dollar prices show without cents ($29), others with cents ($27.99, $24.50).
+  const money = (n) => {
+    const whole = Math.abs(n - Math.round(n)) < 0.005;
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: CONFIG.currency,
+      minimumFractionDigits: whole ? 0 : 2,
+      maximumFractionDigits: whole ? 0 : 2,
+    }).format(n);
+  };
 
   /* ------------------------------------------------------------ TikTok pixel */
   // Standard TikTok base code, only loaded when a pixel ID is configured.
@@ -220,9 +228,13 @@ const CONFIG = {
   });
 
   /* -------------------------------------------------------------- sticky bar */
+  // Shows once the main call to action has scrolled away, and hides while the buy area is on
+  // screen. Pages can mark these with data-sticky-anchor / data-sticky-hide.
   const sticky = $("[data-sticky]");
-  const heroCta = $("#hero-cta");
-  if (sticky && heroCta && offer && "IntersectionObserver" in window) {
+  const heroCta = $("[data-sticky-anchor]") || $("#hero-cta");
+  const hideZone = $("[data-sticky-hide]");
+  const hideTarget = hideZone || offer;
+  if (sticky && heroCta && hideTarget && "IntersectionObserver" in window) {
     let pastHero = false;
     let atOffer = false;
     const update = () => {
@@ -238,7 +250,7 @@ const CONFIG = {
     new IntersectionObserver(([e]) => {
       atOffer = e.isIntersecting;
       update();
-    }, { threshold: 0.15 }).observe(offer);
+    }, { threshold: hideZone ? 0 : 0.15 }).observe(hideTarget);
   }
 
   /* ------------------------------------------------------------------ pixel */
