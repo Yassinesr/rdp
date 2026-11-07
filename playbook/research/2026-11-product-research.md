@@ -151,6 +151,60 @@ Offer the metal tag as an add-on to raise the order value (keychain + matching c
 $44.99). The PDD sellers' photos are their property, so use your own sample photos and videos on
 the page.
 
+## 6c. Update: buyer review photos (7 Nov 2026)
+
+Buyer review photos (买家秀) from the Pinduoduo listings show real-world quality rather than the
+sellers' polished images. They are **not** our own samples yet.
+
+| Format | What the photos show |
+|---|---|
+| **Illustrated tag with raised 3D portrait** (listing #3, ¥27.9) | Realistic faces with fine raised detail on the portrait and border (flowers, rainbow, balloons). Custom name in English or Chinese. Arrives in a plain plastic bag |
+| Round tag, leather rim, raised portrait | Close likeness to the original photo (buyer posted both side by side) |
+| **Faux-leather keychain cut to the pet's shape** (listing #1, ¥41.15) | Handmade look; **two pets on one keychain** possible; plain stitched back, bell and wooden-bead charms |
+
+**Decision: the hero product is the illustrated 3D tag**, as a keychain (and a necklace version if
+the supplier offers one). Reasons:
+- **Best finish:** the strongest detail in the buyer photos.
+- **Cheaper:** costs less than the leather keychain.
+- **Themed borders map to US moments:**
+
+  | Border theme | US moment |
+  |---|---|
+  | Rainbow | Pet memorial ("Rainbow Bridge") |
+  | Balloons | Pet birthday / gotcha day |
+  | Flowers | Everyday gift, Mother's Day (9 May 2027) |
+  | Hearts | Valentine's Day (14 Feb 2027) |
+  | Snow | Christmas |
+
+  That gives the page a "pick a theme" choice and gives content a theme per season.
+
+**Proposed line-up** (prices to confirm after samples and quotes):
+
+| Offer | Price | Contribution before ads* |
+|---|---|---|
+| 1 portrait tag, keychain, gift pouch + card | $29.99 | $15.54–20.54 |
+| 2 portrait tags (two pets, or one to gift) | $49.99 | Higher; one parcel |
+| Premium: leather keychain cut to the pet's shape, up to 2 pets | $44.99 | About $28–33 |
+
+\*Costs use Pinduoduo retail prices (factory prices should be lower); shipping + duties assumed
+$3–8; packaging $0.50; card fees 2.9% + $0.30; refunds 3%.
+
+**How it's made (seller screenshot):** the seller builds a **3D model from the customer's photo**
+on screen, e.g. a kitten whose paws break out of the coin frame, before production. So:
+- **A proof step exists.** Offer customers "approve your pet's portrait before we make it" (a
+  selling point, and fewer refunds). Set a rule: approve within 24 h, or one free revision, then
+  auto-approve.
+- **Lead time** = modeling + printing + painting. Ask how many working days, and how many
+  revisions are included.
+- **Probably resin** (3D-printed, then painted or UV-printed). Raised parts can chip in transit, so
+  ship in a small rigid box with padding, not just a plastic bag. Recheck the billed weight with
+  the box.
+- Pop-out designs (paws breaking the frame) are very strong for short videos.
+
+**Still unproven until samples are in hand:** scratch resistance of the raised surface, color
+fading, the leather smell, real weight, production days, and how the seller turns a phone photo
+into the artwork (do they send a proof?).
+
 ## 7. Your next steps (in the apps)
 
 **Do first (fastest, cheapest):** order **all four PDD listings above** as samples (about ¥146 in
