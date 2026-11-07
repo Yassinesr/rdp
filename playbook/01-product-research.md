@@ -91,8 +91,10 @@ Score 1–5 on each line and multiply by the weight. Above 70 out of 100 is wort
 
 ## 1.4 Candidate shortlist for November 2026 to February 2027
 
-These pass the hard filters. Product costs are **not quoted yet**: get them from 1688 before
-scoring. Weights are typical for the product type, so confirm with your supplier.
+These pass the hard filters. Weights are typical for the product type, so confirm with your
+supplier. **The November 2026 research round scored these with real supplier prices, and its
+recommendation is a custom pet photo necklace:** see
+[research/2026-11-product-research.md](research/2026-11-product-research.md).
 
 | # | Product | Why now | Likely weight | Target price | Main risks |
 |---|---|---|---|---|---|
@@ -100,7 +102,7 @@ scoring. Weights are typical for the product type, so confirm with your supplier
 | 2 | **Charm claw clips and hair jewelry** | "Hair jewelry" searches hit an all-time high ([Google](https://business.google.com/us/think/search-and-video/search-trends-marketing-takeaways/)); charmable claw clips trending ([TikTok](https://www.tiktok.com/discover/hair-accessory-trends)) | 30–80 g | $18–30 (bundle) | Cheap copies; needs a styling angle |
 | 3 | **Beaded phone charms and straps** | Phone accessories are steady top sellers; beaded, pearl and bow designs dominate ([TikTok Shop](https://shop.tiktok.com/us/k/phone-charms)) | 10–30 g | $15–25 (2–3 pack) | Low price, so bundles are essential |
 | 4 | **Suction lick mat** (page already built) | Calming during baths, nail trims and fireworks (New Year's Eve) ([SodaPup](https://sodapup.com/blogs/enrichment/best-lick-mat-for-dogs-buyers-guide)) | about 150 g | $17.99–34.99 bundles | Crowded on Amazon, so the bath-time angle is the selling point |
-| 5 | **Recovery and mobility tools** (fascia ring, stretching strap) | January resolutions ([Jungle Scout](https://www.junglescout.com/blog/amazon-market-watch-new-years-resolution-product-trends/)); fascia ring sold about $855K in one week ([FastMoss](https://www.fastmoss.com/blog/best-selling-products-by-category/)) | 100–300 g | $20–40 | Copies; no electric versions |
+| 5 | ~~Recovery and mobility tools~~ | January resolutions ([Jungle Scout](https://www.junglescout.com/blog/amazon-market-watch-new-years-resolution-product-trends/)). **Dropped in research:** the best-selling "fascia ring" is a rechargeable vibrating belt (battery), and non-electric stretching straps retail for only $7–15 | n/a | n/a | See [Nov 2026 research](research/2026-11-product-research.md) |
 | 6 | **Light cat products** (grooming glove, cat lick mat, teaser wand refill packs) | Cat content performs; avoid beds, trees and fountains | 50–200 g | $15–30 (bundle) | Very cheap competition, so bundle and brand it |
 
 **Seasonal calendar** (plan content about 4 weeks ahead: about a quarter of TikTok users plan
