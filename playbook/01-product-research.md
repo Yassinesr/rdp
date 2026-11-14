@@ -2,8 +2,8 @@
 
 How to find products that sell on TikTok **and** still make money when you ship from China.
 Most "trending product" lists ignore the second half, which is where most dropshippers lose money.
-The cat desk perch is the example in this repo: it's trending, but its 1.2 kg billed shipping
-weight wipes out the profit (see [cost model](02-cost-model.md#example-b-cat-desk-perch)).
+A cat desk perch is a good example: it's trending, but its 1.2 kg billed shipping weight wipes
+out the profit (see [cost model](02-cost-model.md#example-b-cat-desk-perch)).
 
 ## 1.1 Where to look
 
@@ -92,17 +92,15 @@ Score 1–5 on each line and multiply by the weight. Above 70 out of 100 is wort
 ## 1.4 Candidate shortlist for November 2026 to February 2027
 
 These pass the hard filters. Weights are typical for the product type, so confirm with your
-supplier. **The November 2026 research round scored these with real supplier prices, and its
-recommendation is a custom pet photo necklace:** see
-[research/2026-11-product-research.md](research/2026-11-product-research.md).
+supplier.
 
 | # | Product | Why now | Likely weight | Target price | Main risks |
 |---|---|---|---|---|---|
 | 1 | **Personalized stainless-steel jewelry** (name/initial necklaces, birthstone, couple sets) | Jewelry is the fastest-growing category (+39.9% in Sept). **Valentine's Day is Sun 14 Feb 2027**, and personalization is the lead trend ([Brilliant Earth](https://www.brilliantearth.com/gifts/valentines-day/), [GWI](https://www.gwi.com/blog/valentines-day-trends)). About 4% returns | 20–60 g | $25–45 | Plating quality; nickel limits in the EU; engraving lead time (2–4 days) |
 | 2 | **Charm claw clips and hair jewelry** | "Hair jewelry" searches hit an all-time high ([Google](https://business.google.com/us/think/search-and-video/search-trends-marketing-takeaways/)); charmable claw clips trending ([TikTok](https://www.tiktok.com/discover/hair-accessory-trends)) | 30–80 g | $18–30 (bundle) | Cheap copies; needs a styling angle |
 | 3 | **Beaded phone charms and straps** | Phone accessories are steady top sellers; beaded, pearl and bow designs dominate ([TikTok Shop](https://shop.tiktok.com/us/k/phone-charms)) | 10–30 g | $15–25 (2–3 pack) | Low price, so bundles are essential |
-| 4 | **Suction lick mat** (page already built) | Calming during baths, nail trims and fireworks (New Year's Eve) ([SodaPup](https://sodapup.com/blogs/enrichment/best-lick-mat-for-dogs-buyers-guide)) | about 150 g | $17.99–34.99 bundles | Crowded on Amazon, so the bath-time angle is the selling point |
-| 5 | ~~Recovery and mobility tools~~ | January resolutions ([Jungle Scout](https://www.junglescout.com/blog/amazon-market-watch-new-years-resolution-product-trends/)). **Dropped in research:** the best-selling "fascia ring" is a rechargeable vibrating belt (battery), and non-electric stretching straps retail for only $7–15 | n/a | n/a | See [Nov 2026 research](research/2026-11-product-research.md) |
+| 4 | **Suction lick mat** | Calming during baths, nail trims and fireworks (New Year's Eve) ([SodaPup](https://sodapup.com/blogs/enrichment/best-lick-mat-for-dogs-buyers-guide)) | about 150 g | $17.99–34.99 bundles | Crowded on Amazon, so the bath-time angle is the selling point |
+| 5 | ~~Recovery and mobility tools~~ | January resolutions ([Jungle Scout](https://www.junglescout.com/blog/amazon-market-watch-new-years-resolution-product-trends/)). **Dropped in research:** the best-selling "fascia ring" is a rechargeable vibrating belt (battery), and non-electric stretching straps retail for only $7–15 | n/a | n/a | n/a |
 | 6 | **Light cat products** (grooming glove, cat lick mat, teaser wand refill packs) | Cat content performs; avoid beds, trees and fountains | 50–200 g | $15–30 (bundle) | Very cheap competition, so bundle and brand it |
 
 **Seasonal calendar** (plan content about 4 weeks ahead: about a quarter of TikTok users plan

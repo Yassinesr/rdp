@@ -50,8 +50,8 @@ scripts/build.mjs        ← reads products/*.json → writes /<slug>/index.html
 {
   "slug": "lick-mat",
   "status": "live",
-  "brand": "Pawse",
-  "name": "Pawse Suction Lick Mat",
+  "brand": "YourBrand",
+  "name": "YourBrand Suction Lick Mat",
   "seo": { "title": "...", "description": "...", "ogImage": "assets/og-lick-mat.png" },
   "hero": { "eyebrow": "...", "headline": "...", "lead": "...", "chips": ["...", "..."], "art": "lick-mat.svg" },
   "steps": [{ "title": "Spread", "text": "..." }],
